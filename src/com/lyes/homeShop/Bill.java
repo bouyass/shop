@@ -1,6 +1,7 @@
 package com.lyes.homeShop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Bill {
@@ -12,6 +13,7 @@ public class Bill {
     public Bill(Customer customer,Delivery delivery){
         this.customer = customer;
         this.delivery = delivery;
+        this.products = new HashMap<Product, Integer>();
     }
 
     public Customer getCustomer() {

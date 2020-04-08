@@ -13,6 +13,6 @@ public class Main {
         bill.addProduct(tv, 1);
         bill.addProduct(fridge, 1);
 
-        bill.generate(new FileWriter("facture_leblanc"));
+        bill.generate(new FileWriter("facture_lyes_makhloufi"));
     }
 }

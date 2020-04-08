@@ -1,10 +1,11 @@
 package com.lyes.homeShop;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.IOException;
+
 
 public class FileWriter implements Writer {
     private String fileName;
@@ -23,13 +24,15 @@ public class FileWriter implements Writer {
 
     @Override
     public void writeLine(String line) {
-        content += line + "%n";
+        content += line + "\n";
     }
 
     @Override
     public void stop() {
         try{
-            Files.write(path, String.format(content).getBytes());
+            PrintWriter writer = new PrintWriter(fileName+".txt");
+            writer.println(content);
+            writer.close();
         }catch(IOException e){
             e.printStackTrace();
         }
