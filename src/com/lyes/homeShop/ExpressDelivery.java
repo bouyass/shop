@@ -1,15 +1,15 @@
 package com.lyes.homeShop;
 
 public class ExpressDelivery implements Delivery {
-    private String address;
+    private String city;
 
-    public ExpressDelivery(String address){
-        this.address = address;
+    public ExpressDelivery(String city){
+        this.city = city;
     }
 
     @Override
     public double getPrice() {
-        if (address == "paris"){
+        if (this.city.equals("paris")){
             return 6.99;
         }else{
             return  9.99;
