@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bill {
-
+    private boolean costDelivery = true;
     private Customer customer;
     private Map<Product,Integer> products;
     private Delivery delivery;
@@ -42,25 +42,42 @@ public class Bill {
         writer.writeLine("");
         writer.writeLine("Produits : ");
         writer.writeLine("-----------------------------------------------------");
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            Product product = entry.getKey();
-            Integer quantity = entry.getValue();
-            writer.writeLine(product.getName() + " - " + product.getPrice() + " - " + quantity + " unité(s)");
-            writer.writeLine(product.getDescription());
-            writer.writeLine("");
+        if (products.isEmpty()){
+            writer.writeLine("\n\n\n Pas de produits dans la facture \n\n");
+            this.costDelivery = false;
+        }else{
+            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+                Product product = entry.getKey();
+                Integer quantity = entry.getValue();
+                writer.writeLine(product.getName() + " - " + product.getPrice() + " € - " + quantity + " unité(s)");
+                writer.writeLine(product.getDescription());
+                writer.writeLine("");
+            }
+
         }
-        writer.writeLine("Livraison : " + delivery.getPrice());
+        if (this.costDelivery == true){
+            writer.writeLine("Livraison : " + delivery.getPrice() + " €");
+        }else{
+            writer.writeLine("Livraison : " + 0.00 + " €");
+            writer.writeLine("Il n'y a pas eu de livraison pour absence de produits");
+        }
         writer.writeLine("-----------------------------------------------------");
-        writer.writeLine("Total : " + this.getTotal());
+        writer.writeLine("Total : " + this.getTotal() +" €");
         writer.stop();
+
     }
 
     public double getTotal(){
-        double total = delivery.getPrice();
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            Product product = entry.getKey();
-            Integer quantity = entry.getValue();
-            total += product.getPrice() * quantity;
+        double total = 0.00;
+        if (this.costDelivery == true) {
+            total = delivery.getPrice();
+            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+                Product product = entry.getKey();
+                Integer quantity = entry.getValue();
+                total += product.getPrice() * quantity;
+            }
+        }else{
+            return total;
         }
         return total;
     }
